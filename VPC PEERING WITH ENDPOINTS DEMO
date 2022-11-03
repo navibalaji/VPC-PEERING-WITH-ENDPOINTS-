@@ -1,0 +1,47 @@
+                                                         VPC peering with different AWS account 
+
+                                                                       using VPC endpoints 
+
+1. create vpc with Account 1 and Account 2 (different CIDRs).
+
+2. Create subnet with different availability zones in Account 1 and Account 2.
+
+-----------------------Account 1------------------------------------------------------------------------------------------------------------------
+
+3. create internet gateway in Account 1 and attach with vpc.
+
+4. Create Route Table for Account 1 and edit route entry of Internet Gateway && Associate subnet.  
+
+5. Launch EC2 instance public. 
+
+----------------------Account 2--------------------------------------------------------------------------------------------------------------------
+
+6. create route table for Account 2 and Associate private subnet.
+
+7. Launch EC2 instance private.  
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+8. Go to Account 1 >> peering connection >> create peering connection >>  select another account ID >> give another account vpc id >> create
+
+9. Go to account 2 >> peering connection >> select peering connection >> actions >> Accept Request.
+
+10. Go to Account 1 >> route table >> edit routes >> add route >> Give ACCOUNT 2 vpc CIDR >> select peering connection ID >> save
+
+11. Go to Account 2 >> route table >> edit routes >> add route >> Give ACCOUNT 1 vpc CIDR >> select peering connection ID >> save
+
+------------Now peering connection has been established in two AWS Accounts-----------------------------------------------------
+
+12. Create one role (s3 Full Access) for Account 2.
+
+13. Attach the role to Private instance of Account 2.
+
+14. Create one s3 bucket and upload some sample files in that s3 bucket.
+
+15. create endpoints for s3 in Account 2.
+
+16. NOw check peering and endpoints.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+aws s3 ls --region us-east-1 --endpoint-url https://bucket<endpoint's DNS>
